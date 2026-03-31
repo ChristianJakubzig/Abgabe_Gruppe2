@@ -1,0 +1,91 @@
+package de.thwildau.bibinfo.abgabe_gruppe2.model;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
+import java.util.Set;
+
+/**
+ * Entität für einen Film in der Filmdatenbank.
+ */
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Film {
+
+    /**
+     * Eindeutige ID des Films.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long filmId;
+
+    /**
+     * Deutscher Titel des Films.
+     */
+    @NotBlank(message = "Titel darf nicht leer sein")
+    @Column(nullable = false)
+    private String titel;
+
+    /**
+     * Originaltitel des Films – optional.
+     */
+    private String originaltitel;
+
+    /**
+     * Erscheinungsjahr des Films.
+     */
+    @Min(value = 1888, message = "Jahr muss 1888 oder später sein")
+    @Column(nullable = false)
+    private int jahr;
+
+    /**
+     * Inhaltsbeschreibung des Films.
+     */
+    @NotBlank(message = "Inhalt darf nicht leer sein")
+    @Column(nullable = false, length = 2000)
+    private String inhalt;
+
+    /**
+     * Länge des Films in Minuten.
+     */
+    @Min(value = 1, message = "Länge muss mindestens 1 Minute sein")
+    @Column(nullable = false)
+    private int laenge;
+
+    /**
+     * Genres des Films.
+     */
+    @ManyToMany
+    @JoinTable(
+        name = "film_genre",
+        joinColumns = @JoinColumn(name = "film_id"),
+        inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private Set<Genre> genres;
+
+    /**
+     * Produktionsländer des Films.
+     */
+    @ManyToMany
+    @JoinTable(
+        name = "film_land",
+        joinColumns = @JoinColumn(name = "film_id"),
+        inverseJoinColumns = @JoinColumn(name = "land_id")
+    )
+    private Set<Land> laender;
+
+    /**
+     * Regisseure des Films.
+     */
+    @ManyToMany
+    @JoinTable(
+        name = "film_regie",
+        joinColumns = @JoinColumn(name = "film_id"),
+        inverseJoinColumns = @JoinColumn(name = "regisseur_id")
+    )
+    private Set<Regisseur> regisseure;
+}
