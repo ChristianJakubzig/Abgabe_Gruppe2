@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Filmübersicht</title>
+</head>
+<body>
+<h1>Filmübersicht</h1>
+
+<a th:href="@{/filme/neu}">Neuen Film hinzufügen</a>
+
+<table>
+  <thead>
+  <tr>
+    <th>Titel</th>
+    <th>Originaltitel</th>
+    <th>Jahr</th>
+    <th>Länge (Min)</th>
+    <th>Genre</th>
+    <th>Land</th>
+    <th>Regie</th>
+    <th>Inhalt</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="film : ${alleFilme}">
+    <td th:text="${film.titel}"></td>
+    <td th:text="${film.originaltitel}"></td>
+    <td th:text="${film.jahr}"></td>
+    <td th:text="${film.laenge}"></td>
+    <td th:text="${#strings.listJoin(film.genres.![name], ', ')}"></td>
+    <td th:text="${#strings.listJoin(film.laender.![name], ', ')}"></td>
+    <td th:text="${#strings.listJoin(film.regisseure.![vorname + ' ' + nachname], ', ')}"></td>
+    <td th:text="${film.inhalt}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

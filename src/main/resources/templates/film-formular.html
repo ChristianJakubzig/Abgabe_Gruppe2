@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Neuen Film hinzufügen</title>
+</head>
+<body>
+  <h1>Neuen Film hinzufügen</h1>
+
+  <form th:action="@{/filme/neu}" th:object="${film}" method="post">
+    <div>
+      <label th:for="titel">Titel *</label>
+      <input type="text" th:field="*{titel}"/>
+      <span th:if="${#fields.hasErrors('titel')}" th:errors="*{titel}"></span>
+    </div>
+
+    <div>
+      <label th:for="originaltitel">Originaltitel</label>
+      <input type="text" th:field="*{originaltitel}"/>
+    </div>
+
+    <div>
+      <label th:for="jahr">Jahr *</label>
+      <input type="number" th:field="*{jahr}"/>
+      <span th:if="${#fields.hasErrors('jahr')}" th:errors="*{jahr}"></span>
+    </div>
+
+    <div>
+      <label th:for="inhalt">Inhalt *</label>
+      <textarea th:field="*{inhalt}"></textarea>
+      <span th:if="${#fields.hasErrors('inhalt')}" th:errors="*{inhalt}"></span>
+    </div>
+
+    <div>
+      <label th:for="laenge">Länge (Minuten) *</label>
+      <input type="number" th:field="*{laenge}"/>
+      <span th:if="${#fields.hasErrors('laenge')}" th:errors="*{laenge}"></span>
+    </div>
+
+    <div>
+      <label for="genreEingabe">Genres * (mehrere mit Komma trennen, z.B. "Action, Thriller")</label>
+      <input type="text" id="genreEingabe" name="genreEingabe"/>
+    </div>
+
+    <div>
+      <label for="landEingabe">Länder * (mehrere mit Komma trennen, z.B. "Deutschland, USA")</label>
+      <input type="text" id="landEingabe" name="landEingabe"/>
+    </div>
+
+    <div>
+      <label for="regisseurEingabe">Regisseure * (Format: "Vorname Nachname", mehrere mit Komma trennen)</label>
+      <input type="text" id="regisseurEingabe" name="regisseurEingabe"/>
+    </div>
+
+    <button type="submit">Film speichern</button>
+
+    <a th:href="@{/filme}">Zurück zur Übersicht</a>
+  </form>
+</body>
+</html>

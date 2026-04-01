@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import de.thwildau.bibinfo.abgabe_gruppe2.model.Film;
+import de.thwildau.bibinfo.abgabe_gruppe2.model.Genre;
+import de.thwildau.bibinfo.abgabe_gruppe2.model.Land;
+import de.thwildau.bibinfo.abgabe_gruppe2.model.Regisseur;
 import de.thwildau.bibinfo.abgabe_gruppe2.repository.FilmRepository;
 import de.thwildau.bibinfo.abgabe_gruppe2.repository.GenreRepository;
 import de.thwildau.bibinfo.abgabe_gruppe2.repository.LandRepository;
@@ -64,11 +68,8 @@ public class FilmController {
      * @return Name des Thymeleaf-Templates
      */
     @GetMapping("/filme/neu")
-    public String zeigFormulare(Model model) {
+    public String zeigeFormular(Model model) {
         model.addAttribute("film", new Film());
-        model.addAttribute("alleGenres", genreRepository.findAll());
-        model.addAttribute("alleLaender", landRepository.findAll());
-        model.addAttribute("alleRegisseure", regisseurRepository.findAll());
         return "film-formular";
     }
 
@@ -77,19 +78,62 @@ public class FilmController {
      *
      * @param film das ausgefüllte Film-Objekt aus dem Formular
      * @param result enthält eventuelle Validierungsfehler
+     * @param genreEingabe kommaseparierte Genres als Freitext
+     * @param landEingabe kommaseparierte Länder als Freitext
+     * @param regisseurEingabe kommaseparierte Regisseure als Freitext
      * @param model das Model zur Übergabe von Daten an die View
      * @return Weiterleitung zur Übersicht oder zurück zum Formular bei Fehler
      */
     @PostMapping("/filme/neu")
     public String speichereFilm(@Valid @ModelAttribute("film") Film film,
                                 BindingResult result,
+                                @RequestParam String genreEingabe,
+                                @RequestParam String landEingabe,
+                                @RequestParam String regisseurEingabe,
                                 Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("alleGenres", genreRepository.findAll());
-            model.addAttribute("alleLaender", landRepository.findAll());
-            model.addAttribute("alleRegisseure", regisseurRepository.findAll());
             return "film-formular";
         }
+
+        // Genres verarbeiten
+        for (String genreNameRaw : genreEingabe.split(",")) {
+            String genreName = genreNameRaw.trim();
+            if (!genreName.isBlank()) {
+                Genre genre = genreRepository.findByName(genreName)
+                                             .orElseGet(() -> genreRepository.save(
+                                                 Genre.builder().name(genreName).build()
+                                                                                  ));
+                film.getGenres().add(genre);
+            }
+        }
+
+        // Länder verarbeiten
+        for (String landNameRaw : landEingabe.split(",")) {
+            String landName = landNameRaw.trim();
+            if (!landName.isBlank()) {
+                Land land = landRepository.findByName(landName)
+                                          .orElseGet(() -> landRepository.save(
+                                              Land.builder().name(landName).build()
+                                                                              ));
+                film.getLaender().add(land);
+            }
+        }
+
+        // Regisseure verarbeiten (Format: "Vorname Nachname")
+        for (String regisseurNameRaw : regisseurEingabe.split(",")) {
+            String regisseurName = regisseurNameRaw.trim();
+            String[] teile = regisseurName.split(" ");
+            if (teile.length >= 2) {
+                String vorname = teile[0];
+                String nachname = teile[1];
+                Regisseur regisseur = regisseurRepository.findByVornameAndNachname(vorname, nachname)
+                                                         .orElseGet(() -> regisseurRepository.save(
+                                                             Regisseur.builder().vorname(vorname).nachname(nachname).build()
+                                                                                                  ));
+                film.getRegisseure().add(regisseur);
+            }
+        }
+
         filmRepository.save(film);
         return "redirect:/filme";
     }

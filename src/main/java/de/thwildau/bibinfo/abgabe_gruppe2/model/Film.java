@@ -3,6 +3,7 @@ package de.thwildau.bibinfo.abgabe_gruppe2.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -36,7 +37,7 @@ public class Film {
     private String originaltitel;
 
     /**
-     * Erscheinungsjahr des Films.
+     * Erscheinungsjahr des Films. Muss 1888 oder später sein.
      */
     @Min(value = 1888, message = "Jahr muss 1888 oder später sein")
     @Column(nullable = false)
@@ -57,7 +58,7 @@ public class Film {
     private int laenge;
 
     /**
-     * Genres des Films.
+     * Genres des Films. Ein Film kann mehrere Genres haben.
      */
     @ManyToMany
     @JoinTable(
@@ -65,10 +66,10 @@ public class Film {
         joinColumns = @JoinColumn(name = "film_id"),
         inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
-    private Set<Genre> genres;
+    private Set<Genre> genres = new HashSet<>();
 
     /**
-     * Produktionsländer des Films.
+     * Produktionsländer des Films. Ein Film kann aus mehreren Ländern stammen.
      */
     @ManyToMany
     @JoinTable(
@@ -76,10 +77,10 @@ public class Film {
         joinColumns = @JoinColumn(name = "film_id"),
         inverseJoinColumns = @JoinColumn(name = "land_id")
     )
-    private Set<Land> laender;
+    private Set<Land> laender = new HashSet<>();
 
     /**
-     * Regisseure des Films.
+     * Regisseure des Films. Ein Film kann mehrere Regisseure haben.
      */
     @ManyToMany
     @JoinTable(
@@ -87,5 +88,5 @@ public class Film {
         joinColumns = @JoinColumn(name = "film_id"),
         inverseJoinColumns = @JoinColumn(name = "regisseur_id")
     )
-    private Set<Regisseur> regisseure;
+    private Set<Regisseur> regisseure = new HashSet<>();
 }
