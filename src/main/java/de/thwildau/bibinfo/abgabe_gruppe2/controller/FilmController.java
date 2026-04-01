@@ -46,6 +46,18 @@ public class FilmController {
     }
 
     /**
+     * Zeigt die Übersicht aller gespeicherten Filme an.
+     *
+     * @param model das Model zur Übergabe von Daten an die View
+     * @return Name des Thymeleaf-Templates für die Filmübersicht
+     */
+    @GetMapping("/filme")
+    public String zeigeFilmListe(Model model) {
+        model.addAttribute("alleFilme", filmRepository.findAll());
+        return "film-liste";
+    }
+
+    /**
      * Zeigt das Formular zur Eingabe eines neuen Films an.
      *
      * @param model das Model zur Übergabe von Daten an die View
