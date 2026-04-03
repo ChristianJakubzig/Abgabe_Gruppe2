@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="filme">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="film" type="filmType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="filmType">
+    <xs:sequence>
+      <xs:element name="filmId" type="xs:long"/>
+      <xs:element name="titel" type="xs:string"/>
+      <xs:element name="originaltitel" type="xs:string" minOccurs="0"/>
+      <xs:element name="jahr" type="xs:int"/>
+      <xs:element name="inhalt" type="xs:string"/>
+      <xs:element name="laenge" type="xs:int"/>
+      <xs:element name="genres" type="genresType"/>
+      <xs:element name="laender" type="laenderType"/>
+      <xs:element name="regisseure" type="regisseureType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="genresType">
+    <xs:sequence>
+      <xs:element name="genre" type="xs:string"
+        minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="laenderType">
+    <xs:sequence>
+      <xs:element name="land" type="xs:string"
+        minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="regisseureType">
+    <xs:sequence>
+      <xs:element name="regisseur" type="regisseurType"
+        minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="regisseurType">
+    <xs:sequence>
+      <xs:element name="vorname" type="xs:string"/>
+      <xs:element name="nachname" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
