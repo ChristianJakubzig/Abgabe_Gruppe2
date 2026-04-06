@@ -7,6 +7,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+
   <xs:complexType name="filmType">
     <xs:sequence>
       <xs:element name="filmId" type="xs:long"/>
