@@ -1,5 +1,7 @@
 package de.thwildau.bibinfo.abgabe_gruppe2.dto;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.XmlElement;
 import lombok.*;
@@ -9,6 +11,7 @@ import lombok.*;
  * Wird von JAXB als Kindelement innerhalb eines Films verwendet.
  */
 @XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 @Getter
 @Setter
 @NoArgsConstructor

@@ -2,6 +2,8 @@ package de.thwildau.bibinfo.abgabe_gruppe2.dto;
 
 import java.util.List;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 
@@ -12,6 +14,7 @@ import lombok.*;
  * Wird von JAXB für die Serialisierung in XML verwendet.
  */
 @XmlRootElement(name = "film")
+@XmlAccessorType(XmlAccessType.FIELD)
 @Getter
 @Setter
 @NoArgsConstructor

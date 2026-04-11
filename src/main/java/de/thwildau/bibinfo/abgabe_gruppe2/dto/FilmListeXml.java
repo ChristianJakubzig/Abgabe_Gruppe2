@@ -1,5 +1,7 @@
 package de.thwildau.bibinfo.abgabe_gruppe2.dto;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 import lombok.*;
@@ -10,6 +12,7 @@ import java.util.List;
  * Repräsentiert das Wurzelelement "filme" in der XML-Ausgabe.
  */
 @XmlRootElement(name = "filme")
+@XmlAccessorType(XmlAccessType.FIELD)
 @Getter
 @Setter
 @NoArgsConstructor
