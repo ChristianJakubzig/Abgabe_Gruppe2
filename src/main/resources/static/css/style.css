@@ -1,0 +1,322 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap');
+
+/* Grundlayout */
+body {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hauptinhalt */
+.main-content {
+    flex: 1;
+}
+
+/* Header */
+.site-header {
+    background-color: #3d5c57;
+    background-image: url('/images/14178028.png');
+    background-size: cover;
+    background-position: center top;
+    padding: 4rem 0 4rem 0;
+    margin-bottom: 0;
+    border-bottom: 3px solid #3d5c57;
+    text-align: center;
+}
+
+/* Seitentitel */
+.page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    color: #5a8a82;
+    margin: 2rem 0 1.5rem 0;
+}
+
+/* Formular-Titel */
+.form-title {
+    font-family: 'Playfair Display', serif;
+    color: #5a8a82;
+    font-size: 3rem;
+    font-weight: 400;
+    margin: 2rem 0 1.5rem 0;
+}
+
+/* Toolbar */
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+/* Suchfeld */
+.search-input {
+    background-color: #2a2a2a;
+    border: 2px solid #5a8a82;
+    border-radius: 0;
+    color: #ffffff;
+    padding: 0.6rem 1.2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    flex: 3;
+    min-width: 0;
+    height: 43px;
+    box-sizing: border-box;
+}
+
+.search-input::placeholder {
+    color: #aaaaaa;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #ffffff;
+    background-color: #2a2a2a;
+}
+
+/* Dropdown */
+.sketch-select {
+    background-color: #2a2a2a;
+    border: 2px solid #5a8a82;
+    border-radius: 0;
+    color: #ffffff;
+    padding: 0.6rem 1.2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    flex: 1;
+    min-width: 0;
+    height: 43px;
+    box-sizing: border-box;
+}
+
+.sketch-select:focus {
+    outline: none;
+    border-color: #ffffff;
+}
+
+/* Buttons */
+.btn-sketch {
+    background-color: transparent;
+    border: 2px solid #5a8a82;
+    border-radius: 0;
+    color: #5a8a82;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    padding: 0.6rem 1.4rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    height: 43px;
+    box-sizing: border-box;
+}
+
+.btn-sketch:hover {
+    background-color: #5a8a82;
+    color: #ffffff;
+}
+
+.btn-sketch-reset {
+    background-color: transparent;
+    border: 2px solid #aaaaaa;
+    border-radius: 0;
+    color: #aaaaaa;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    padding: 0.6rem 1.4rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    white-space: nowrap;
+    height: 43px;
+    box-sizing: border-box;
+}
+
+.btn-sketch-reset:hover {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+/* Formular-Aktionen */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+
+/* Tabellen-Wrapper */
+.table-wrapper {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* Tabelle */
+.film-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    table-layout: auto;
+}
+
+.film-table thead tr {
+    border-bottom: 2px solid #5a8a82;
+}
+
+.film-table th {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    color: #5a8a82;
+    padding: 0.9rem 0.8rem;
+    text-align: left;
+    font-size: 1.3rem;
+    letter-spacing: 0.05em;
+    position: sticky;
+    top: 0;
+    background-color: #1e1e1e;
+    z-index: 1;
+}
+
+.film-table td {
+    padding: 0.75rem 0.8rem;
+    border-bottom: 1px solid #2d2d2d;
+    vertical-align: middle;
+    color: #e0e0e0;
+    font-size: 1rem;
+}
+
+.film-table tbody tr:hover {
+    background-color: #252525;
+}
+
+/* Spaltenbreiten */
+.film-table th:nth-child(1) { width: 120px; white-space: nowrap; }
+.film-table th:nth-child(4) { white-space: nowrap; }
+.film-table th:nth-child(5) { white-space: nowrap; }
+.film-table th:nth-child(7) { white-space: nowrap; }
+
+/* Coverbilder */
+.cover-img {
+    height: 180px;
+    width: 120px;
+    object-fit: cover;
+    display: block;
+    border: 1px solid #5a8a82;
+}
+
+/* Formular-Labels */
+.form-label-sketch {
+    color: #5a8a82;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+.form-label-hint {
+    color: #aaaaaa;
+    text-transform: none;
+    font-size: 1rem;
+}
+
+/*  Pflichtfeld-Stern */
+.required-star {
+    color: #8a5a62;
+}
+
+/* Formular-Inputs */
+.form-input-sketch {
+    background-color: #2a2a2a;
+    border: 2px solid #5a8a82;
+    border-radius: 0;
+    color: #ffffff;
+    padding: 0.6rem 1.2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    width: 66%;
+    margin-bottom: 1.2rem;
+}
+
+.form-input-sketch:focus {
+    outline: none;
+    border-color: #ffffff;
+    background-color: #2a2a2a;
+}
+
+.form-hint {
+    color: #aaaaaa;
+    font-size: 0.9rem;
+    margin-top: -1rem;
+    margin-bottom: 1.2rem;
+    display: block;
+}
+
+.form-error {
+    color: #8a5a62;
+    font-size: 0.9rem;
+    display: block;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+}
+
+/* Pflichtfeld-Hinweis */
+.required-note {
+    color: #8a5a62;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    display: block;
+}
+
+/* Links */
+a {
+    color: #5a8a82;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ffffff;
+}
+
+/* Footer */
+.site-footer {
+    background-color: #3d5c57;
+    background-image: url('/images/14178028.png');
+    background-size: cover;
+    background-position: center bottom;
+    color: #8a5a62;
+    text-align: left;
+    padding: 1rem 0 1rem 3rem;
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
+    text-shadow: 2px 0px 0px #000000, -2px 0px 0px #000000,
+    0px 2px 0px #000000, 0px -2px 0px #000000, 2px 2px 0px #000000,
+    -2px -2px 0px #000000, 2px -2px 0px #000000, -2px 2px 0px #000000;
+    display: flex;
+    align-items: center;
+    min-height: 80px;
+    border-top: 3px solid #3d5c57;
+}
+
+.site-footer .container {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 100%;
+}

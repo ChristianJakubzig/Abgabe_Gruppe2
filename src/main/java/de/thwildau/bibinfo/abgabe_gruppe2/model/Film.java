@@ -28,12 +28,14 @@ public class Film {
      * Deutscher Titel des Films.
      */
     @NotBlank(message = "Titel darf nicht leer sein")
+    @Size(max = 200, message = "Titel darf maximal 200 Zeichen lang sein")
     @Column(nullable = false)
     private String titel;
 
     /**
      * Originaltitel des Films – optional.
      */
+    @Size(max = 200, message = "Originaltitel darf maximal 200 Zeichen lang sein")
     private String originaltitel;
 
     /**
@@ -46,7 +48,8 @@ public class Film {
     /**
      * Inhaltsbeschreibung des Films.
      */
-    @NotBlank(message = "Inhalt darf nicht leer sein")
+    @Size(min = 10, message = "Inhalt muss mindestens 10 Zeichen lang sein")
+    @Size(max = 2000, message = "Inhalt darf maximal 2000 Zeichen lang sein")
     @Column(nullable = false, length = 2000)
     private String inhalt;
 
@@ -54,6 +57,7 @@ public class Film {
      * Länge des Films in Minuten.
      */
     @Min(value = 1, message = "Länge muss mindestens 1 Minute sein")
+    @Max(value = 600, message = "Länge darf maximal 600 Minuten sein")
     @Column(nullable = false)
     private int laenge;
 
@@ -89,4 +93,10 @@ public class Film {
         inverseJoinColumns = @JoinColumn(name = "regisseur_id")
     )
     private Set<Regisseur> regisseure = new HashSet<>();
+
+    /**
+     * URL zum Coverbild des Films – optional.
+     */
+    @Size(max = 500, message = "URL darf maximal 500 Zeichen lang sein")
+    private String bildUrl;
 }

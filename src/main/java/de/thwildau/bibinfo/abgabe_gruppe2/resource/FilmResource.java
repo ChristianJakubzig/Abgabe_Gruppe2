@@ -76,6 +76,7 @@ public class FilmResource {
                                     .jahr(film.getJahr())
                                     .inhalt(film.getInhalt())
                                     .laenge(film.getLaenge())
+                                    .bildUrl(film.getBildUrl())
                                     .genres(genres)
                                     .laender(laender)
                                     .regisseure(regisseure)

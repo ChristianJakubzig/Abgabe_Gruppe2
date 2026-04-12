@@ -19,6 +19,9 @@ import de.thwildau.bibinfo.abgabe_gruppe2.repository.GenreRepository;
 import de.thwildau.bibinfo.abgabe_gruppe2.repository.LandRepository;
 import de.thwildau.bibinfo.abgabe_gruppe2.repository.RegisseurRepository;
 
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * Controller für die Verwaltung von Filmen.
  * Verarbeitet Anfragen für die Filmeingabe und -anzeige.
@@ -51,13 +54,38 @@ public class FilmController {
 
     /**
      * Zeigt die Übersicht aller gespeicherten Filme an.
+     * Die Liste kann nach Titel, Jahr, Genre oder Regie sortiert werden.
+     * Unterstützt Freitextsuche über Titel, Originaltitel, Grenre, Regie und Land.
      *
-     * @param model das Model zur Übergabe von Daten an die View
-     * @return Name des Thymeleaf-Templates für die Filmübersicht
+     * @param sortierung Sortierkriterium (titel, jahr, genre, regie), Standard: titel.
+     * @param suche Freitextsuche, optional.
+     * @param model das Model zur Übergabe von Daten an die View.
+     * @return Name des Thymeleaf-Templates für die Filmübersicht.
      */
     @GetMapping("/filme")
-    public String zeigeFilmListe(Model model) {
-        model.addAttribute("alleFilme", filmRepository.findAll());
+    public String zeigeFilmListe(
+            @RequestParam(defaultValue = "titel") String sortierung,
+            @RequestParam(defaultValue = "") String suche, Model model) {
+
+        List<Film> alleFilme = filmRepository.suche(suche);
+
+        if (sortierung.equals("jahr")) {
+            alleFilme.sort(Comparator.comparingInt(Film::getJahr));
+        } else if (sortierung.equals("genre")) {
+            alleFilme.sort(Comparator.comparing(f ->
+                    f.getGenres().isEmpty() ? "" :
+                            f.getGenres().iterator().next().getName()));
+        } else if (sortierung.equals("regie")) {
+            alleFilme.sort(Comparator.comparing(f ->
+                    f.getRegisseure().isEmpty() ? "" :
+                            f.getRegisseure().iterator().next().getNachname()));
+        } else {
+            alleFilme.sort(Comparator.comparing(Film::getTitel));
+        }
+
+        model.addAttribute("alleFilme", alleFilme);
+        model.addAttribute("sortierung", sortierung);
+        model.addAttribute("suche", suche);
         return "film-liste";
     }
 
@@ -87,10 +115,21 @@ public class FilmController {
     @PostMapping("/filme/neu")
     public String speichereFilm(@Valid @ModelAttribute("film") Film film,
                                 BindingResult result,
-                                @RequestParam String genreEingabe,
-                                @RequestParam String landEingabe,
-                                @RequestParam String regisseurEingabe,
+                                @RequestParam(defaultValue = "") String genreEingabe,
+                                @RequestParam(defaultValue = "") String landEingabe,
+                                @RequestParam(defaultValue = "") String regisseurEingabe,
                                 Model model) {
+        // Pflichtfeld-Validierung für Freitexteingaben
+        if (genreEingabe.isBlank()) {
+            result.rejectValue("genres", "error.genres", "Genre darf nicht leer sein");
+        }
+        if (landEingabe.isBlank()) {
+            result.rejectValue("laender", "error.laender", "Land darf nicht leer sein");
+        }
+        if (regisseurEingabe.isBlank()) {
+            result.rejectValue("regisseure", "error.regisseure", "Regisseur darf nicht leer sein");
+        }
+
         if (result.hasErrors()) {
             return "film-formular";
         }

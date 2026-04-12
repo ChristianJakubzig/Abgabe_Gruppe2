@@ -76,4 +76,10 @@ public class FilmXml {
     @XmlElement
     private List<RegisseurXml> regisseure;
 
+    /**
+     * Coverbild des Films.
+     */
+    @XmlElement
+    private String bildUrl;
+
 }
