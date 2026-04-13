@@ -19,6 +19,7 @@
       <xs:element name="genres" type="genresType"/>
       <xs:element name="laender" type="laenderType"/>
       <xs:element name="regisseure" type="regisseureType"/>
+      <xs:element name="bildUrl" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
