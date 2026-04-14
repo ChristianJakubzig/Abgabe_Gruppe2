@@ -165,11 +165,13 @@ public class FilmController {
             if (teile.length >= 2) {
                 String vorname = teile[0];
                 String nachname = teile[1];
-                Regisseur regisseur = regisseurRepository.findByVornameAndNachname(vorname, nachname)
-                                                         .orElseGet(() -> regisseurRepository.save(
-                                                             Regisseur.builder().vorname(vorname).nachname(nachname).build()
-                                                                                                  ));
-                film.getRegisseure().add(regisseur);
+                Regisseur regisseur = regisseurRepository.findByVornameAndNachname(vorname, nachname)                                                                                                                                                                                        .orElseGet(() -> regisseurRepository.save(
+                    Regisseur.builder().vorname(vorname).nachname(nachname).build()
+                                                                                                                                                                                                                                                                                                                                      ));                                                                                                                                               film.getRegisseure().add(regisseur);
+            } else {
+                result.rejectValue("regisseure", "error.regisseure",
+                                   "Regisseur muss als 'Vorname Nachname' angegeben werden");
+                return "film-formular";
             }
         }
 
